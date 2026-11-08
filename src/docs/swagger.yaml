@@ -18,6 +18,22 @@ definitions:
     - last_name
     - phone_number
     type: object
+  github_com_amirmalekian_Mashinchi_src_api_dto.CountryResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  github_com_amirmalekian_Mashinchi_src_api_dto.CreateUpdateCountryRequest:
+    properties:
+      name:
+        maxLength: 20
+        minLength: 3
+        type: string
+    required:
+    - name
+    type: object
   github_com_amirmalekian_Mashinchi_src_api_dto.GetOtpRequest:
     properties:
       phoneNumber:
@@ -33,7 +49,7 @@ definitions:
         minLength: 6
         type: string
       username:
-        minLength: 6
+        minLength: 5
         type: string
     required:
     - password
@@ -125,6 +141,121 @@ definitions:
 info:
   contact: {}
 paths:
+  /v1/countries/:
+    post:
+      consumes:
+      - application/json
+      description: Create a country
+      parameters:
+      - description: Create a country
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CreateUpdateCountryRequest'
+      responses:
+        "201":
+          description: Country response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CountryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Create a country
+      tags:
+      - Countries
+  /v1/countries/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a country
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "201":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a country
+      tags:
+      - Countries
+    get:
+      consumes:
+      - application/json
+      description: Get a country
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: response
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Get a country
+      tags:
+      - Countries
+    put:
+      consumes:
+      - application/json
+      description: Update a country
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a country
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CreateUpdateCountryRequest'
+      responses:
+        "201":
+          description: Country response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CountryResponse'
+              type: object
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a country
+      tags:
+      - Countries
   /v1/health/:
     get:
       consumes:
