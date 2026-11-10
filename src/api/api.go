@@ -39,11 +39,13 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		test_router := v1.Group("/test" /* middleware.Authentication(cfg), middleware.Authorization([]string{"admin"})*/)
 		users := v1.Group("/users")
 		countries := v1.Group("/countries", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		cities := v1.Group("/cities", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 
 		router.Health(health)
 		router.TestRouter(test_router)
 		router.User(users, cfg)
 		router.Country(countries, cfg)
+		router.City(cities, cfg)
 	}
 
 	v2 := api.Group("/v2")
