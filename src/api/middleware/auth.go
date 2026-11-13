@@ -25,7 +25,7 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 		if auth == "" {
 			err = &service_errors.ServiceError{EndUserMessage: service_errors.TokenRequired}
 		} else {
-			claimMap, err = tokenService.GetClaims(token[0])
+			claimMap, err = tokenService.GetClaims(token[1])
 			if err != nil {
 				switch err.(*jwt.ValidationError).Errors {
 				case jwt.ValidationErrorExpired:
@@ -79,6 +79,5 @@ func Authorization(validRoles []string) gin.HandlerFunc {
 			}
 		}
 		ctx.AbortWithStatusJSON(http.StatusForbidden, helper.GenerateBaseResponse(nil, false, -301))
-
 	}
 }

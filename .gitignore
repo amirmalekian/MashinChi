@@ -30,7 +30,7 @@ go.work.sum
 *.log
 *.log.gz
 
-__debug_bin
+__debug_bin.*
 */cmd/uploads
 
 # env file
