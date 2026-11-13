@@ -83,7 +83,7 @@ func (t *TestHandler) HeaderBinder1(ctx *gin.Context) {
 
 func (t *TestHandler) HeaderBinder2(ctx *gin.Context) {
 	header := header{}
-	ctx.BindHeader(&header)
+	_ = ctx.BindHeader(&header)
 
 	ctx.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "HeaderBinder1",
@@ -151,7 +151,7 @@ func (t *TestHandler) BodyBinder(ctx *gin.Context) {
 
 func (t *TestHandler) FormBinder(ctx *gin.Context) {
 	p := personData{}
-	ctx.ShouldBind(&p)
+	_ = ctx.ShouldBind(&p)
 
 	ctx.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "FormBinder",
