@@ -413,9 +413,21 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "response",
+                        "description": "Country response",
                         "schema": {
-                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CountryResponse"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {

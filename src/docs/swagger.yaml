@@ -527,9 +527,14 @@ paths:
         type: integer
       responses:
         "200":
-          description: response
+          description: Country response
           schema:
-            $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+            allOf:
+            - $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CountryResponse'
+              type: object
         "400":
           description: Bad request
           schema:
