@@ -53,10 +53,15 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		countries := v1.Group("/countries", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 		cities := v1.Group("/cities", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 		files := v1.Group("/files", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		companies := v1.Group("/companies", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 
 		// Property
 		properties := v1.Group("/properties", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 		propertyCategories := v1.Group("/property-categories", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+
+		// Car
+		carTypes := v1.Group("/car-types", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		gearboxes := v1.Group("/gearboxes", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 
 		// Test
 		router.Health(health)
@@ -69,10 +74,15 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		router.Country(countries, cfg)
 		router.City(cities, cfg)
 		router.File(files, cfg)
+		router.Company(companies, cfg)
 
 		// Property
 		router.Property(properties, cfg)
 		router.PropertyCategory(propertyCategories, cfg)
+
+		// Car
+		router.CarType(carTypes, cfg)
+		router.Gearbox(gearboxes, cfg)
 	}
 
 	v2 := api.Group("/v2")
