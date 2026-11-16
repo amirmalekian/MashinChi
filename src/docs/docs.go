@@ -4635,7 +4635,7 @@ const docTemplate = `{
         },
         "/v1/users/send-otp": {
             "post": {
-                "description": "Send Otp to user",
+                "description": "Send otp to user",
                 "consumes": [
                     "application/json"
                 ],
@@ -4645,7 +4645,7 @@ const docTemplate = `{
                 "tags": [
                     "Users"
                 ],
-                "summary": "Send Otp to user",
+                "summary": "Send otp to user",
                 "parameters": [
                     {
                         "description": "GetOtpRequest",

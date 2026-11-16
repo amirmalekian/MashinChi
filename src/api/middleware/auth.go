@@ -44,7 +44,7 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 		ctx.Set(constants.UserIdKey, claimMap[constants.UserIdKey])
 		ctx.Set(constants.FirstNameKey, claimMap[constants.FirstNameKey])
 		ctx.Set(constants.LastNameKey, claimMap[constants.LastNameKey])
-		ctx.Set(constants.UserNameKey, claimMap[constants.UserNameKey])
+		ctx.Set(constants.UsernameKey, claimMap[constants.UsernameKey])
 		ctx.Set(constants.EmailKey, claimMap[constants.EmailKey])
 		ctx.Set(constants.PhoneNumberKey, claimMap[constants.PhoneNumberKey])
 		ctx.Set(constants.RolesKey, claimMap[constants.RolesKey])

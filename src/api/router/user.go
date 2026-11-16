@@ -12,6 +12,6 @@ func User(router *gin.RouterGroup, cfg *config.Config) {
 
 	router.POST("/send-otp", middleware.OtpLimiter(cfg), h.SendOtp)
 	router.POST("/login-by-username", h.LoginByUsername)
-	router.POST("/register-by-username",h.RegisterByUsername)
-	router.POST("/login-by-phone",h.RegisterLoginByPhoneNumber)
+	router.POST("/register-by-username", h.RegisterByUsername)
+	router.POST("/login-by-phone", h.RegisterLoginByPhoneNumber)
 }

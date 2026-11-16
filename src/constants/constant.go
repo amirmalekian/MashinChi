@@ -4,7 +4,7 @@ const (
 	// User
 	AdminRoleName      string = "admin"
 	DefaultRoleName    string = "default"
-	DefaultUserName    string = "admin"
+	DefaultUsername    string = "admin"
 	RedisOtpDefaultKey string = "otp"
 
 	// Claims
@@ -12,7 +12,7 @@ const (
 	UserIdKey              string = "UserId"
 	FirstNameKey           string = "FirstName"
 	LastNameKey            string = "LastName"
-	UserNameKey            string = "UserName"
+	UsernameKey            string = "Username"
 	EmailKey               string = "Email"
 	PhoneNumberKey         string = "PhoneNumber"
 	RolesKey               string = "Roles"

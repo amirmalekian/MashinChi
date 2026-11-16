@@ -3795,7 +3795,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Send Otp to user
+      description: Send otp to user
       parameters:
       - description: GetOtpRequest
         in: body
@@ -3818,7 +3818,7 @@ paths:
           description: Failed
           schema:
             $ref: '#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse'
-      summary: Send Otp to user
+      summary: Send otp to user
       tags:
       - Users
   /v1/years/:

@@ -115,7 +115,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
-		err := val.RegisterValidation("mobile", validation.IranianPhoneNumberValidator, true)
+		err := val.RegisterValidation("phone", validation.IranianPhoneNumberValidator, true)
 		if err != nil {
 			logger.Error(logging.Validation, logging.Startup, err.Error(), nil)
 		}

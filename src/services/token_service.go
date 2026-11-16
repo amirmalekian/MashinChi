@@ -20,7 +20,7 @@ type tokenDto struct {
 	UserId      int
 	FirstName   string
 	LastName    string
-	UserName    string
+	Username    string
 	PhoneNumber string
 	Email       string
 	Roles       []string
@@ -43,7 +43,7 @@ func (s *TokenService) GenerateToken(token *tokenDto) (*dto.TokenDetail, error) 
 	atc[constants.UserIdKey] = token.UserId
 	atc[constants.FirstNameKey] = token.FirstName
 	atc[constants.LastNameKey] = token.LastName
-	atc[constants.UserNameKey] = token.UserName
+	atc[constants.UsernameKey] = token.Username
 	atc[constants.EmailKey] = token.Email
 	atc[constants.PhoneNumberKey] = token.PhoneNumber
 	atc[constants.RolesKey] = token.Roles
