@@ -290,6 +290,281 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/car-model-images/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Create a CarModelImage",
+                "parameters": [
+                    {
+                        "description": "Create a CarModelImage",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CreateCarModelImageRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelImage response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-images/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get CarModelImages",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Get CarModelImages",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.PagedList-github_com_amirmalekian_Mashinchi_src_api_dto_CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-images/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Get a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Update a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a CarModelImage",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.UpdateCarModelImageRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Delete a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/car-model-price-histories/": {
             "post": {
                 "security": [
@@ -4167,6 +4442,23 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.FileResponse"
+                },
+                "isMainImage": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github_com_amirmalekian_Mashinchi_src_api_dto.CarModelPriceHistoryResponse": {
             "type": "object",
             "properties": {
@@ -4191,6 +4483,12 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelColorResponse"
+                    }
+                },
+                "carModelImages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse"
                     }
                 },
                 "carModelYears": {
@@ -4324,6 +4622,24 @@ const docTemplate = `{
                 },
                 "colorId": {
                     "type": "integer"
+                }
+            }
+        },
+        "github_com_amirmalekian_Mashinchi_src_api_dto.CreateCarModelImageRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "imageId"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "imageId": {
+                    "type": "integer"
+                },
+                "isMainImage": {
+                    "type": "boolean"
                 }
             }
         },
@@ -4636,6 +4952,32 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_amirmalekian_Mashinchi_src_api_dto.PagedList-github_com_amirmalekian_Mashinchi_src_api_dto_CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_amirmalekian_Mashinchi_src_api_dto.CarModelImageResponse"
                     }
                 },
                 "pageNumber": {
@@ -5159,6 +5501,14 @@ const docTemplate = `{
                 },
                 "colorId": {
                     "type": "integer"
+                }
+            }
+        },
+        "github_com_amirmalekian_Mashinchi_src_api_dto.UpdateCarModelImageRequest": {
+            "type": "object",
+            "properties": {
+                "isMainImage": {
+                    "type": "boolean"
                 }
             }
         },
