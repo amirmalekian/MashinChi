@@ -9,9 +9,12 @@ import (
 	"github.com/amirmalekian/Mashinchi/src/config"
 	"github.com/amirmalekian/Mashinchi/src/docs"
 	"github.com/amirmalekian/Mashinchi/src/pkg/logging"
+	"github.com/amirmalekian/Mashinchi/src/pkg/metric"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -22,9 +25,11 @@ func InitServer(cfg *config.Config) {
 	r := gin.New()
 
 	RegisterValidators()
+	RegisterPrometheus()
 
 	r.Use(middleware.DefaultStructuredLogger(cfg))
 	r.Use(middleware.Cors(cfg))
+	r.Use(middleware.Prometheus())
 	r.Use(gin.Logger(), gin.CustomRecovery(middleware.ErrorHandler) /*middleware.TestMiddleware()*/, middleware.LimitByRequest())
 
 	RegisterRoutes(r, cfg)
@@ -103,6 +108,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		router.CarModelComment(carModelComments, cfg)
 
 		r.Static("/static", "./uploads")
+
+		r.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	}
 
 	v2 := api.Group("/v2")
@@ -135,4 +142,16 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+}
+
+func RegisterPrometheus(){
+	err := prometheus.Register(metric.DbCall)
+	if err != nil {
+		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
+	}
+	
+	err = prometheus.Register(metric.HttpDuration)
+	if err != nil {
+		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
+	}
 }
