@@ -70,6 +70,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		carModelPriceHistories := v1.Group("/car-model-price-histories", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 		carModelImages := v1.Group("/car-model-images", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
 		carModelProperties := v1.Group("/car-model-properties", middleware.Authentication(cfg), middleware.Authorization([]string{"admin"}))
+		carModelComments := v1.Group("/car-model-comments", middleware.Authentication(cfg), middleware.Authorization([]string{"admin", "default"}))
 
 		// Test
 		router.Health(health)
@@ -99,6 +100,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		router.CarModelPriceHistory(carModelPriceHistories, cfg)
 		router.CarModelImage(carModelImages, cfg)
 		router.CarModelProperty(carModelProperties, cfg)
+		router.CarModelComment(carModelComments, cfg)
 
 		r.Static("/static", "./uploads")
 	}
