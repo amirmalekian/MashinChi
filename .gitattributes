@@ -1,3 +1,6 @@
 # Shell scripts are bind-mounted into Linux containers. Keep LF endings so
 # shebangs like "#!/usr/bin/env bash" remain executable inside the container.
 *.sh text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
