@@ -9,7 +9,7 @@ import (
 	"github.com/amirmalekian/Mashinchi/src/config"
 	"github.com/amirmalekian/Mashinchi/src/docs"
 	"github.com/amirmalekian/Mashinchi/src/pkg/logging"
-	"github.com/amirmalekian/Mashinchi/src/pkg/metric"
+	"github.com/amirmalekian/Mashinchi/src/pkg/metrics"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -145,12 +145,12 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 }
 
 func RegisterPrometheus(){
-	err := prometheus.Register(metric.DbCall)
+	err := prometheus.Register(metrics.DbCall)
 	if err != nil {
 		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
 	}
 	
-	err = prometheus.Register(metric.HttpDuration)
+	err = prometheus.Register(metrics.HttpDuration)
 	if err != nil {
 		logger.Error(logging.Prometheus, logging.Startup, err.Error(), nil)
 	}

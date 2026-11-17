@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/amirmalekian/Mashinchi/src/pkg/metric"
+	"github.com/amirmalekian/Mashinchi/src/pkg/metrics"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ func Prometheus() gin.HandlerFunc {
 		method := c.Request.Method
 		c.Next()
 		status := c.Writer.Status()
-		metric.HttpDuration.WithLabelValues(path, method, strconv.Itoa(status)).
+		metrics.HttpDuration.WithLabelValues(path, method, strconv.Itoa(status)).
 			Observe(float64(time.Since(start) / time.Millisecond))
 
 	}

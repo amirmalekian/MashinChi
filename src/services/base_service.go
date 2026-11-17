@@ -16,7 +16,7 @@ import (
 	"github.com/amirmalekian/Mashinchi/src/data/db"
 	"github.com/amirmalekian/Mashinchi/src/data/models"
 	"github.com/amirmalekian/Mashinchi/src/pkg/logging"
-	"github.com/amirmalekian/Mashinchi/src/pkg/metric"
+	"github.com/amirmalekian/Mashinchi/src/pkg/metrics"
 	"github.com/amirmalekian/Mashinchi/src/pkg/service_errors"
 	"gorm.io/gorm"
 )
@@ -46,13 +46,13 @@ func (s *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, 
 	if err != nil {
 		tx.Rollback()
 		s.Logger.Error(logging.Postgres, logging.Insert, err.Error(), nil)
-		metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Failed").Inc()
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Failed").Inc()
 		return nil, err
 	}
 
 	tx.Commit()
 	bm, _ := common.TypeConverter[models.BaseModel](model)
-	metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Success").Inc()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Success").Inc()
 	return s.GetById(ctx, bm.Id)
 }
 
@@ -72,11 +72,11 @@ func (s *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu
 		Error; err != nil {
 		tx.Rollback()
 		s.Logger.Error(logging.Postgres, logging.Update, err.Error(), nil)
-		metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Failed").Inc()
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Failed").Inc()
 		return nil, err
 	}
 	tx.Commit()
-	metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Success").Inc()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Success").Inc()
 	return s.GetById(ctx, id)
 }
 
@@ -99,11 +99,11 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 		RowsAffected; cnt == 0 {
 		tx.Rollback()
 		s.Logger.Error(logging.Postgres, logging.Update, service_errors.RecordNotFound, nil)
-		metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Failed").Inc()
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Failed").Inc()
 		return &service_errors.ServiceError{EndUserMessage: service_errors.RecordNotFound}
 	}
 	tx.Commit()
-	metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Success").Inc()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Success").Inc()
 	return nil
 }
 
@@ -114,20 +114,20 @@ func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, 
 		Where("id = ? AND deleted_by is null", id).
 		First(model).
 		Error; err != nil {
-		metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Failed").Inc()
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Failed").Inc()
 		return nil, err
 	}
-	metric.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Success").Inc()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Success").Inc()
 	return common.TypeConverter[Tr](model)
 }
 
 func (s *BaseService[T, Tc, Tu, Tr]) GetByFilter(ctx context.Context, req *dto.PaginationInputWithFilter) (*dto.PagedList[Tr], error) {
 	res, err := Paginate[T, Tr](req, s.Preloads, s.Database)
 	if err != nil {
-		metric.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Failed").Inc()
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Failed").Inc()
 		return nil, err
 	}
-	metric.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Success").Inc()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Success").Inc()
 	return res, nil
 }
 
