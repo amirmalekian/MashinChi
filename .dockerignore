@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+.vscode
+docker
+prod
+README.md
+LICENSE
+test.go
+src/logs
+src/cmd/__debug_bin.exe
