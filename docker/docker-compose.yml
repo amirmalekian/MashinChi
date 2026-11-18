@@ -73,6 +73,7 @@ services:
     volumes:
       - ./elk/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - ../src/logs:/var/log/filebeat/service
+      - ../prod/logs:/var/log/filebeat/service
       - logs:/var/log/filebeat
       - logs:/app:ro
  
@@ -196,6 +197,40 @@ services:
     networks:
       - webapi_network 
     restart: always
+  
+  car-api1:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api1
+    environment:
+      - PORT=9001
+    ports:
+      - 9001:5000
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+
+  car-api2:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api2
+    environment:
+      - PORT=9002
+    ports:
+      - 9002:5000
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
 
 ####################### VOLUME AND NETWORKS #######################
 volumes:
