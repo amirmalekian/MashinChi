@@ -1,8 +1,9 @@
 Server:
-  Port: 5005
-  RunMode: debug
+  internalPort: 5005
+  externalPort: 5005
+  runMode: debug
 logger:
-  filePath: ../logs/logs.log
+  filePath: ../logs/
   encoding: json
   level: debug
   logger: zap

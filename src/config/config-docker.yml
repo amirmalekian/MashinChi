@@ -1,6 +1,7 @@
 Server:
-  Port: 5005
-  RunMode: debug
+  internalPort: 5000
+  externalPort: 0
+  runMode: release
 logger:
   filePath: /app/logs/
   encoding: json
